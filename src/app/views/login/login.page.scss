@@ -1,0 +1,50 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+        height: 100px;
+        width: 100px;
+    }
+
+    span {
+        font-size: 1.5rem; // Más grande
+        font-style: italic; // Cursiva
+        font-weight: bold; // Negrita
+        color: white;
+        font-family: 'Georgia', 'Times New Roman', serif; // Más elegante
+    }
+}
+
+.screen-title {
+    font-size: 1.25rem; // Más grande
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif; // Fuente moderna
+    margin-right: 50px; // Espaciado más natural
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        font-family: 'Georgia', serif;
+    }
+
+    .login-hint {
+        margin-top: 2rem;
+        color: #999;
+        font-style: italic;
+    }
+}
+
+ion-note {
+    margin-left: 16px;
+    font-size: 0.9rem;
+}

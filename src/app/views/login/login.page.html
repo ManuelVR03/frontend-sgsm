@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content">
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>
+    <div slot="end" class="screen-title">
+      Inicio de sesión
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <h2>Iniciar sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input formControlName="dni"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('dni')?.touched && loginForm.get('dni')?.invalid">
+        <ng-container *ngIf="loginForm.get('dni')?.errors?.['required']">
+          El DNI es obligatorio.
+        </ng-container>
+        <ng-container *ngIf="loginForm.get('dni')?.errors?.['dni']">
+          El DNI introducido no es válido.
+        </ng-container>
+      </ion-note>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="pass"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('pass')?.touched && loginForm.get('pass')?.invalid">
+        <ng-container *ngIf="loginForm.get('pass')?.errors?.['required']">
+          La contraseña es obligatoria.
+        </ng-container>
+        <ng-container *ngIf="loginForm.get('pass')?.errors?.['minlength']">
+          La contraseña debe tener al menos 4 caracteres.
+        </ng-container>
+      </ion-note>
+
+      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
+        Entrar
+      </ion-button>
+    </form>
+
+    <p class="login-hint">Solo personal autorizado.</p>
+    <ion-note color="danger" *ngIf="errorMsg">
+      {{ errorMsg }}
+    </ion-note>    
+  </div>
+</ion-content>

@@ -1,0 +1,93 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    img {
+      height: 100px;
+      width: 100px;
+    }
+  
+    span {
+      font-size: 1.5rem; // Más grande
+      font-style: italic; // Cursiva
+      font-weight: bold; // Negrita
+      color: white;
+      font-family: 'Georgia', 'Times New Roman', serif; // Más elegante
+    }
+  }
+  
+  .screen-title {
+    font-size: 1.25rem; // Más grande
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif; // Fuente moderna
+    margin-right: 50px; // Espaciado más natural
+  }
+
+  ion-grid.dashboard-grid {
+    justify-content: center;
+  }
+  
+  ion-card.dashboard-card {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 320px; // Aumentado
+    height: auto;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  ion-card.dashboard-card:hover {
+    transform: scale(1.03);
+  }
+  
+  ion-card-content.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .dashboard-icon {
+    font-size: 5.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .dashboard-label {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .dashboard-grid {
+    justify-content: center;
+    align-items: center;
+  }
+
+  ion-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 576px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+  
+    .screen-title {
+      font-size: 1.1rem;
+      margin-right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  

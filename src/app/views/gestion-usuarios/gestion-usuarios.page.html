@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>    
+    <div slot="end" class="screen-title">
+      Gestión de Usuarios
+    </div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button color="primary" (click)="abrirFormulario()">Crear nuevo</ion-button>
+
+  <ion-grid class="tabla-usuarios">
+    <ion-row class="header-row">
+      <ion-col><strong>DNI</strong></ion-col>
+      <ion-col><strong>Nombre</strong></ion-col>
+      <ion-col class="ion-hide-sm-down"><strong>Apellido</strong></ion-col>
+      <ion-col class="ion-hide-sm-down"><strong>Rol</strong></ion-col>
+      <ion-col class="ion-hide-sm-down"><strong>Bar</strong></ion-col>
+      <ion-col><strong>Acciones</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let user of usuarios" class="data-row">
+      <ion-col>{{ user.dni }}</ion-col>
+      <ion-col>{{ user.nombre }}</ion-col>
+      <ion-col class="ion-hide-sm-down">{{ user.apellido1 }}</ion-col>
+      <ion-col class="ion-hide-sm-down">{{ user.rol.nombre }}</ion-col>
+      <ion-col class="ion-hide-sm-down">{{ user.bar?.nombre || '-'}}</ion-col>
+      <ion-col class="acciones">
+        <ion-button fill="clear" color="warning" size="small" (click)="abrirFormulario(user)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" size="small" (click)="eliminarUsuario(user)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

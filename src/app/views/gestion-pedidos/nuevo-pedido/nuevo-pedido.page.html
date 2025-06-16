@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Nuevo Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="pedidoForm" (ngSubmit)="enviarPedido()">
+
+    <!-- Bar (solo para admins o como readonly para no-admins) -->
+    <div *ngIf="isAdmin; else readonlyBar">
+      <ion-item>
+        <ion-label position="floating">Bar</ion-label>
+        <ion-select formControlName="barId" interface="popover">
+          <ion-select-option *ngFor="let bar of bares" [value]="bar.id">
+            {{ bar.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <ng-template #readonlyBar>
+      <ion-item>
+        <ion-label>Bar</ion-label>
+        <ion-note slot="end">{{ barNombre }}</ion-note>
+      </ion-item>
+    </ng-template>
+
+    <!-- Proveedor -->
+    <ion-item>
+      <ion-label position="floating">Proveedor</ion-label>
+      <ion-select formControlName="proveedorId" (ionChange)="cargarProductos()" interface="popover">
+        <ion-select-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
+          {{ proveedor.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Productos -->
+    <div *ngIf="productosFormArray.controls.length > 0" formArrayName="productos">
+      <ion-list>
+        <div *ngFor="let grupo of productosFormArray.controls; let i = index" [formGroupName]="i">
+          <ion-item lines="full">
+            <ion-label class="ion-text-wrap">
+              <h2><strong>{{ productos[i].nombre }}</strong></h2>
+              <ion-note color="medium">Unidad: {{ productos[i].unidadMedida }}</ion-note>
+            </ion-label>
+            <ion-input type="number" formControlName="cantidad" min="0" inputmode="decimal" placeholder="Cantidad"
+              style="max-width: 120px; text-align: right;"></ion-input>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+
+    <ion-button expand="block" type="submit" [disabled]="pedidoForm.invalid || !hayAlMenosUnProductoConCantidad()">
+      Crear Pedido
+    </ion-button>
+
+  </form>
+</ion-content>

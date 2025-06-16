@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>    
+    <div slot="end" class="screen-title">
+      Stock
+    </div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="card-grid">
+      <ion-col size="6" sizeMd="6" sizeLg="4" *ngFor="let bar of bares">
+        <ion-card class="bar-card" (click)="verStock(bar.id)">
+          <div class="card-content">
+            <ion-icon name="storefront-outline"></ion-icon>
+            <span class="bar-name">{{ bar.nombre }}</span>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>  
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ producto ? 'Editar Producto' : 'Crear Producto' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="productoForm" (ngSubmit)="guardar()">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Precio Unitario</ion-label>
+        <ion-input type="number" formControlName="precioUnitario"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Unidad de Medida</ion-label>
+        <ion-select formControlName="unidadMedida">
+          <ion-select-option value="BARRIL">Barril</ion-select-option>
+          <ion-select-option value="CAJA">Caja</ion-select-option>
+          <ion-select-option value="UNIDAD">Unidad</ion-select-option>
+          <ion-select-option value="KILOGRAMOS">Kilogramos</ion-select-option>
+          <ion-select-option value="LITROS">Litros</ion-select-option>
+        </ion-select>
+      </ion-item>      
+
+      <ion-item>
+        <ion-label position="floating">Proveedor</ion-label>
+        <ion-select formControlName="proveedor">
+          <ion-select-option *ngFor="let p of proveedores" [value]="p.id">
+            {{ p.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" type="submit" [disabled]="productoForm.invalid">
+      {{ producto ? 'Guardar Cambios' : 'Crear Producto' }}
+    </ion-button>
+  </form>
+</ion-content>

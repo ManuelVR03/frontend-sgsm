@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ usuario ? 'Editar Usuario' : 'Crear Usuario' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="usuarioForm" (ngSubmit)="guardar()">
+    <ion-list lines="full">
+
+      <ion-item>
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input formControlName="dni"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('dni')?.touched && usuarioForm.get('dni')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('dni')?.errors?.['required']">
+          El DNI es obligatorio.
+        </ng-container>
+        <ng-container *ngIf="usuarioForm.get('dni')?.errors?.['dni']">
+          El DNI introducido no es válido.
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('nombre')?.touched && usuarioForm.get('nombre')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('nombre')?.errors?.['required']">
+          El Nombre es obligatorio.
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Primer Apellido</ion-label>
+        <ion-input formControlName="apellido1"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('apellido1')?.touched && usuarioForm.get('apellido1')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('apellido1')?.errors?.['required']">
+          El Primer Apellido es obligatorio.
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Segundo Apellido</ion-label>
+        <ion-input formControlName="apellido2"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('apellido2')?.touched && usuarioForm.get('apellido2')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('apellido2')?.errors?.['required']">
+          El Segundo Apellido es obligatorio.
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="pass" autocomplete="new-password"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('pass')?.touched && usuarioForm.get('pass')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('pass')?.errors?.['required']">
+          La contraseña es obligatoria.
+        </ng-container>
+        <ng-container *ngIf="usuarioForm.get('pass')?.errors?.['minlength']">
+          La contraseña debe tener al menos 4 caracteres.
+        </ng-container>
+      </ion-note>
+
+
+      <ion-item>
+        <ion-label position="floating">Rol</ion-label>
+        <ion-select formControlName="rol" [disabled]="deshabilitarRol">
+          <ion-select-option *ngFor="let rol of roles" [value]="rol.id">
+            {{ rol.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-note color="danger" *ngIf="usuarioForm.get('rol')?.touched && usuarioForm.get('rol')?.invalid">
+        <ng-container *ngIf="usuarioForm.get('rol')?.errors?.['required']">
+          El Rol es obligatorio.
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="floating">Bar</ion-label>
+        <ion-select formControlName="bar">
+          <ion-select-option *ngFor="let bar of bares" [value]="bar.id">
+            {{ bar.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button expand="block" type="submit" [disabled]="usuarioForm.invalid">
+      {{ usuario ? 'Guardar Cambios' : 'Crear Usuario' }}
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>
+    <div slot="end" class="screen-title">
+      Pedidos {{ barNombre ? 'de ' + barNombre : '' }}
+    </div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button color="primary" (click)="abrirFormularioPedido()">Nuevo pedido</ion-button>
+
+  <ng-container *ngIf="pedidos.length > 0; else sinPedidos">
+    <ion-grid class="tabla-pedidos">
+      <ion-row class="tabla-header" color="light">
+        <ion-col class="ion-hide-sm-down"><strong>Usuario</strong></ion-col>
+        <ion-col><strong>Bar</strong></ion-col>
+        <ion-col class="ion-hide-sm-down"><strong>Proveedor</strong></ion-col>
+        <ion-col class="ion-hide-sm-down"><strong>Fecha pedido</strong></ion-col>
+        <ion-col><strong>Recepción</strong></ion-col>
+        <ion-col><strong>Estado</strong></ion-col>
+        <ion-col><strong>Acción</strong></ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let pedido of pedidos" class="tabla-fila">
+        <ion-col class="ion-hide-sm-down">{{ pedido.usuarioNombre }}</ion-col>
+        <ion-col>{{ pedido.barNombre }}</ion-col>
+        <ion-col class="ion-hide-sm-down">{{ pedido.proveedorNombre }}</ion-col>
+        <ion-col class="ion-hide-sm-down">{{ pedido.fechaRealizacion | date: 'dd/MM/yyyy' }}</ion-col>
+        <ion-col [class.pendiente]="!pedido.fechaRecepcion">
+          {{ pedido.fechaRecepcion ? (pedido.fechaRecepcion | date: 'dd/MM/yyyy') : 'Pendiente' }}
+        </ion-col>
+        <ion-col>{{ pedido.estadoPedidoNombre }}</ion-col>
+        <ion-col>
+          <ion-button [disabled]="pedido.estadoPedidoNombre == 'Entregado'" color="success"
+            (click)="marcarRecibido(pedido)">
+            Recibido
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-template #sinPedidos>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title>No hay pedidos registrados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Aún no se ha añadido ningún pedido. Pulsa "Nuevo Pedido" para registrar uno.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

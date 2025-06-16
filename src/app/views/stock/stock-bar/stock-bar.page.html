@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>
+    <div slot="end" class="screen-title">
+      Stock - {{ barNombre }}
+    </div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="stock.length > 0; else noStock">
+    <ion-searchbar [(ngModel)]="filtro" (ionInput)="filtrarStock()" placeholder="Buscar producto..."
+      showCancelButton="focus">
+    </ion-searchbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let item of stockFiltrado">
+          <ion-card class="stock-card">
+            <ion-card-header class="card-header">
+              <ion-icon name="cube-outline" class="icon-producto"></ion-icon>
+              <ion-card-title>{{ item.productoNombre }}</ion-card-title>
+              <ion-card-subtitle>
+                Cantidad: <strong>{{ item.cantidad }}</strong> {{ item.productoUnidadMedida }}
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-button color="danger" (click)="abrirDisminuir(item)">
+                <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                Disminuir
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4" offset="4">
+          <ion-button expand="block" color="success" (click)="confirmarCambios()" class="ion-margin-top">
+            Aplicar cambios
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-template #noStock>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title>Sin stock disponible</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Actualmente no hay productos registrados en el inventario de este bar.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

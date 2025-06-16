@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>
+    <div slot="end" class="screen-title">
+      Gestión de Productos
+    </div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-button color="primary" (click)="abrirFormulario()">Crear nuevo</ion-button>
+
+  <ion-item>
+    <ion-input
+      [(ngModel)]="terminoBusqueda"
+      (ionInput)="filtrarProductos()"
+      placeholder="Buscar producto por nombre o proveedor"
+      clearInput
+    ></ion-input>
+  </ion-item>
+
+  <ng-container *ngIf="productosFiltrados.length > 0; else sinProductos">
+    <ion-grid class="tabla-productos">
+      <ion-row class="header-row">
+        <ion-col (click)="ordenarPor('nombre')"><strong>Nombre</strong></ion-col>
+        <ion-col (click)="ordenarPor('precioUnitario')"><strong>Precio</strong></ion-col>
+        <ion-col class="ion-hide-sm-down" (click)="ordenarPor('unidadMedida')"><strong>Unidad de medida</strong></ion-col>
+        <ion-col class="ion-hide-sm-down" (click)="ordenarPor('proveedor')"><strong>Proveedor</strong></ion-col>
+        <ion-col><strong>Acciones</strong></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let producto of productosPaginados">
+        <ion-col>{{ producto.nombre }}</ion-col>
+        <ion-col>{{ producto.precioUnitario | currency: 'EUR' }}</ion-col>
+        <ion-col class="ion-hide-sm-down">{{ producto.unidadMedida }}</ion-col>
+        <ion-col class="ion-hide-sm-down">{{ producto.proveedor.nombre }}</ion-col>
+        <ion-col class="acciones">
+          <ion-button fill="clear" color="warning" size="small" (click)="abrirFormulario(producto)">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" size="small" (click)="eliminarProducto(producto)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-button size="small" (click)="paginaAnterior()" [disabled]="paginaActual === 1">
+          Anterior
+        </ion-button>
+
+        <ion-label class="ion-margin-horizontal">
+          Página {{ paginaActual }} de {{ totalPaginas }}
+        </ion-label>
+
+        <ion-button size="small" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas">
+          Siguiente
+        </ion-button>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+  <ng-template #sinProductos>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title>No hay productos registrados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Aún no se ha añadido ningún producto. Pulsa "Crear nuevo" para registrar uno.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+</ion-content>

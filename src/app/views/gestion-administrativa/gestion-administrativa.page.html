@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <div slot="start" class="header-content hide-on-mobile">
+      <ion-back-button></ion-back-button>
+      <img src="/assets/images/logo.png" alt="Logo Giralda" />
+      <span>Segunda Giralda Stock Manager</span>
+    </div>
+    <div slot="end" class="screen-title">Gestión Administrativa</div>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Generar Factura Mensual</ion-card-title>
+      <ion-card-subtitle>Selecciona el periodo y proveedor para facturar</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Año</ion-label>
+        <ion-select [(ngModel)]="anioSeleccionado" (ionChange)="onPeriodoChange()">
+          <ion-select-option *ngFor="let anio of aniosDisponibles" [value]="anio">{{ anio }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="anioSeleccionado">
+        <ion-label>Mes</ion-label>
+        <ion-select [(ngModel)]="mesSeleccionado" (ionChange)="onPeriodoChange()">
+          <ion-select-option *ngFor="let mes of mesesDisponibles" [value]="mes.valor">{{ mes.nombre
+            }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="anioSeleccionado && mesSeleccionado">
+        <ion-label>Proveedor</ion-label>
+        <ion-select [(ngModel)]="proveedorSeleccionado" (ionChange)="filtrarAlbaranes()"
+          [disabled]="proveedores.length === 0 || cargando">
+          <ion-select-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
+            {{ proveedor.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="proveedores.length > 0">
+        <ion-label>Estado</ion-label>
+        <ion-segment [(ngModel)]="estadoSeleccionado" (ionChange)="filtrarAlbaranes()">
+          <ion-segment-button value="pendientes">
+            <ion-label>Pendientes</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="validados">
+            <ion-label>Validados</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-item>
+
+      <ng-container *ngIf="anioSeleccionado && mesSeleccionado && !cargando && proveedores.length === 0">
+        <ion-text color="medium">
+          <p class="ion-padding">No se han encontrado proveedores con albaranes pendientes en el periodo seleccionado.
+          </p>
+        </ion-text>
+      </ng-container>
+
+      <ng-container *ngIf="albaranesFiltrados.length > 0">
+        <ion-grid class="tabla-albaranes">
+          <ion-row class="header-row">
+            <ion-col class="hide-on-mobile"><strong>Nº</strong></ion-col>
+            <ion-col><strong>Fecha</strong></ion-col>
+            <ion-col><strong>Proveedor</strong></ion-col>
+            <ion-col><strong>Importe</strong></ion-col>
+            <ion-col class="hide-on-mobile"><strong>Validado</strong></ion-col>
+            <ion-col><strong>Acciones</strong></ion-col>
+          </ion-row>
+        
+          <ion-row *ngFor="let albaran of albaranesFiltrados">
+            <ion-col class="hide-on-mobile">{{ albaran.id }}</ion-col>
+            <ion-col>{{ albaran.fechaGeneracion | date: 'dd/MM/yyyy' }}</ion-col>
+            <ion-col>{{ albaran.proveedorNombre }}</ion-col>
+            <ion-col>{{ (albaran.importeTotal * 1.21) | currency:'EUR' }}</ion-col>
+            <ion-col class="hide-on-mobile">
+              <ion-badge color="success" *ngIf="albaran.validado">Sí</ion-badge>
+              <ion-badge color="warning" *ngIf="!albaran.validado">No</ion-badge>
+            </ion-col>
+            <ion-col>
+              <ion-button size="small" fill="clear" (click)="descargarPDF(albaran)">
+                <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>        
+
+        <ion-button expand="block" color="tertiary" *ngIf="estadoSeleccionado === 'pendientes'"
+          (click)="generarFacturaMensual()" [disabled]="!proveedorSeleccionado || cargando">
+          Generar factura agrupada por proveedor
+        </ion-button>
+
+      </ng-container>
+
+      <ion-loading [isOpen]="cargando" message="Cargando albaranes..." translucent></ion-loading>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

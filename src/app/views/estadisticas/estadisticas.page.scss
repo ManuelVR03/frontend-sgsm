@@ -1,0 +1,60 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    img {
+      height: 100px;
+      width: 100px;
+    }
+  
+    span {
+      font-size: 1.5rem; // Más grande
+      font-style: italic; // Cursiva
+      font-weight: bold; // Negrita
+      color: white;
+      font-family: 'Georgia', 'Times New Roman', serif; // Más elegante
+    }
+  }
+  
+  .screen-title {
+    font-size: 1.25rem; // Más grande
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif; // Fuente moderna
+    margin-right: 50px; // Espaciado más natural
+  }
+
+  .titulo-grafico {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .boton-estadistica {
+    margin-bottom: 16px;
+    font-weight: bold;
+  }
+  
+  .modal-estadisticas {
+    --width: 90%;
+    --max-width: 500px;
+    --height: auto !important;
+    --min-height: unset !important;
+  }
+  
+  @media screen and (max-width: 576px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+  
+    .screen-title {
+      font-size: 1.1rem;
+      margin-right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  
+  

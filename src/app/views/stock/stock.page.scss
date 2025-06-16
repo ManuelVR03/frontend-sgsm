@@ -1,0 +1,94 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    img {
+      height: 100px;
+      width: 100px;
+    }
+  
+    span {
+      font-size: 1.5rem; // Más grande
+      font-style: italic; // Cursiva
+      font-weight: bold; // Negrita
+      color: white;
+      font-family: 'Georgia', 'Times New Roman', serif; // Más elegante
+    }
+  }
+  
+  .screen-title {
+    font-size: 1.25rem; // Más grande
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif; // Fuente moderna
+    margin-right: 50px; // Espaciado más natural
+  }
+
+@media screen and (max-width: 576px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+  
+    .screen-title {
+      font-size: 1.1rem;
+      margin-right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  .bar-card {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    margin: 20px auto;
+    background-color: var(--pastel-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+  
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+  
+    ion-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+  
+    .bar-name {
+      font-size: 14px;
+      font-weight: bold;
+      padding: 0 12px;
+      line-height: 1.2;
+    }
+  
+    &:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  // Colores pastel alternados
+  ion-col:nth-child(6n+1) .bar-card { --pastel-color: #FFEDDA; }
+  ion-col:nth-child(6n+2) .bar-card { --pastel-color: #D7E9F7; }
+  ion-col:nth-child(6n+3) .bar-card { --pastel-color: #D8F3DC; }
+  ion-col:nth-child(6n+4) .bar-card { --pastel-color: #FFF3DA; }
+  ion-col:nth-child(6n+5) .bar-card { --pastel-color: #FDE2E4; }
+  ion-col:nth-child(6n+6) .bar-card { --pastel-color: #E0BBE4; }
+  
+  // Centrar grid
+  .card-grid {
+    justify-content: center;
+  }
+  
+  

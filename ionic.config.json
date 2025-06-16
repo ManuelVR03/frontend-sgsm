@@ -1,0 +1,7 @@
+{
+  "name": "proyecto_integrado_mvr_frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

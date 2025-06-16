@@ -1,0 +1,78 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    img {
+      height: 100px;
+      width: 100px;
+    }
+  
+    span {
+      font-size: 1.5rem; // Más grande
+      font-style: italic; // Cursiva
+      font-weight: bold; // Negrita
+      color: white;
+      font-family: 'Georgia', 'Times New Roman', serif; // Más elegante
+    }
+  }
+  
+  .screen-title {
+    font-size: 1.25rem; // Más grande
+    font-weight: 600;
+    color: white;
+    font-family: 'Segoe UI', Roboto, sans-serif; // Fuente moderna
+    margin-right: 50px; // Espaciado más natural
+  }
+
+@media screen and (max-width: 576px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+  
+    .screen-title {
+      font-size: 1.1rem;
+      margin-right: 0;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  .tabla-productos {
+    ion-row {
+      border-bottom: 1px solid #ccc;
+      padding: 0.5rem 0;
+  
+      ion-col {
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+      }
+  
+      &.header-row {
+        background-color: #f4f4f4;
+        font-weight: bold;
+        font-size: 1rem;
+  
+        ion-col {
+          color: #333;
+        }
+      }
+  
+      &.data-row {
+        transition: background 0.2s ease;
+  
+        &:hover {
+          background-color: #f9f9f9;
+        }
+      }
+  
+      .acciones {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  
